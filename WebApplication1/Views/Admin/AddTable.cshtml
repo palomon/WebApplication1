@@ -1,6 +1,6 @@
-﻿@model WebApplication1.Models.Product
+﻿@model WebApplication1.Models.Table
 @{
-    ViewBag.Title = "SmartBuffet; แก้ไขสินค้า";
+    ViewBag.Title = "SmartBuffet; จัดการโต๊ะ";
 }
 <html lang="en">
 <body>
@@ -49,84 +49,52 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1><i class="glyphicon glyphicon-user"></i> เพิ่มสินค้า</h1>
+                        <h1><i class="glyphicon glyphicon-user"></i> จัดการโต๊ะ</h1>
                     </div>
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-12">
-                        @if (@Html.ViewBag.Flag == true)
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
-                            using (Html.BeginForm("EditProd", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.ValidationSummary(true)
+                            @Html.ValidationSummary(true)
                         <!--<form class="form-horizontal">-->
-                            <!-- Text input
+                            <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
-                                     <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                //@Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "รหัสสินค้า", @type = "text" } })
-                                // @Html.ValidationMessageFor(model => model.PID)
+                                    <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
+                                    @Html.EditorFor(model => model.TableID , new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text" } })
+                                    @Html.ValidationMessageFor(model => model.TableID)
 
-                              <!--  </div>
-                            </div> 
-                            -->
+                                </div>
+                            </div>
+
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="">ชื่อสินค้า</label>
+                                <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="ชื่อสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.PName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสินค้า", @type = "text", @readonly = "true", @Value = @Html.ViewBag.ProductEdit.PName } })
-                                    @Html.ValidationMessageFor(model => model.PName)
+                                    @Html.EditorFor(model => model.Tablename, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสินค้า", @type = "text" } })
+                                    @Html.ValidationMessageFor(model => model.Tablename)
                                 </div>
                             </div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="">ราคาสินค้า</label>
-                                <div class="col-md-4">
-                                    <!--   <input id="" name="" type="text" placeholder="ราคาสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.PPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคาสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.PPrice } })
-                                    @Html.ValidationMessageFor(model => model.PPrice)
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="">จำนวนสินค้า</label>
-                                <div class="col-md-4">
-                                    <!--   <input id="" name="" type="text" placeholder="จำนวนสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.AmountMAX, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.AmountMAX } })
-                                    @Html.ValidationMessageFor(model => model.AmountMAX)
-                                </div>
-                            </div>
                             <div align="center">
                                 <button type="submit" class="btn btn-default  btn-lg">บันทึก</button>
                                 <button type="reset" class="btn btn-danger  btn-lg">ล้างข้อมูล</button>
                             </div>
                         <!-- </form>-->
-                            }
                         }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @{
-        if (HttpContext.Current.Request.QueryString["result"] == "true")
-        {
-            <script type="text/javascript">
-        alert("สำเร็จ");
-        //document.location = "/Home/";
-            </script>
-        }
-    }
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
 
 

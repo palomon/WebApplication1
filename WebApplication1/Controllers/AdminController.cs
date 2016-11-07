@@ -55,6 +55,8 @@ namespace WebApplication1.Controllers
                         ViewBag.EmPos = item.Position;
                     }
                 }
+                List<Table> TableList = this.TableCollection.FindAll().ToList<Table>();
+                ViewBag.TabList = TableList;
                 return View();
             }
             else
@@ -309,19 +311,7 @@ namespace WebApplication1.Controllers
             if (Session["id"] != null)
             {
                 List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
-                foreach (var item in EmList)
-                {
-                    //Console.WriteLine(item.EmFirstName);
-                    if (item.id.Equals(Session["id"]))
-                    {
-                        //Console.WriteLine(item.EmFirstName);
-                        ViewBag.EmFN = item.EmFirstName;
-                        ViewBag.EmLN = item.EmLastName;
-                        ViewBag.EmPos = item.Position;
-                    }
-                }
-                ViewBag.Employee = EmList;
-
+                
                 var query = Query.EQ("EmID", user.EmID);
                 var update = Update<Employee>.Set(e => e.EmFirstName, user.EmFirstName);
                 this.EmployeeCollection.Update(query, update);
@@ -393,6 +383,149 @@ namespace WebApplication1.Controllers
         //Edit Product
         public ActionResult EditProduct()
         {
+             if (Session["id"] != null)
+             {
+                 List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                 foreach (var item in EmList)
+                 {
+                     //Console.WriteLine(item.EmFirstName);
+                     if (item.id.Equals(Session["id"]))
+                     {
+                         //Console.WriteLine(item.EmFirstName);
+                         ViewBag.EmFN = item.EmFirstName;
+                         ViewBag.EmLN = item.EmLastName;
+                         ViewBag.EmPos = item.Position;
+                     }
+                 }
+                 ViewBag.Employee = EmList;
+
+
+
+                 return View();
+             }
+             else
+             {
+                 return Redirect("/Admin/Login");
+             }
+        }
+
+        [HttpGet]
+        public ActionResult EditProduct(string id)
+        {
+            if (Session["id"] != null)
+            {
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                foreach (var item in EmList)
+                {
+                    //Console.WriteLine(item.EmFirstName);
+                    if (item.id.Equals(Session["id"]))
+                    {
+                        //Console.WriteLine(item.EmFirstName);
+                        ViewBag.EmFN = item.EmFirstName;
+                        ViewBag.EmLN = item.EmLastName;
+                        ViewBag.EmPos = item.Position;
+                    }
+                }
+                ViewBag.Employee = EmList;
+
+                List<Product> ProdList = this.ProductCollection.FindAll().ToList<Product>();
+                ViewBag.Product = ProdList;
+                ViewBag.Flag = false;
+                if (id != null)
+                {
+                    ViewBag.ProductEdit = this.ProductCollection.FindOneById(ObjectId.Parse(id));
+                    ViewBag.Flag = true;
+                }
+
+                return View();
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditProd(string id, Product prod)
+        {
+            if (Session["id"] != null)
+            {
+                List<Product> ProList = this.ProductCollection.FindAll().ToList<Product>();
+                var query = Query.EQ("PName", prod.PName);
+                var update = Update<Product>.Set(e => e.PPrice, prod.PPrice);
+                this.ProductCollection.Update(query, update);
+                update = Update<Product>.Set(e => e.AmountMAX, prod.AmountMAX);
+                this.ProductCollection.Update(query, update);
+                return Redirect("/Admin/Stock");
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
+        }
+
+        public ActionResult DeleteProduct(string id)
+        {
+            var query = Query.EQ("_id", ObjectId.Parse(id));
+            this.ProductCollection.Remove(query);
+            return Redirect("/Admin/Stock");
+        }
+
+
+        public ActionResult CheckBill()
+        {
+            return View();
+        }
+
+        public ActionResult AddTable()
+        {
+            if (Session["id"] != null)
+            {
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                foreach (var item in EmList)
+                {
+                    //Console.WriteLine(item.EmFirstName);
+                    if (item.id.Equals(Session["id"]))
+                    {
+                        //Console.WriteLine(item.EmFirstName);
+                        ViewBag.EmFN = item.EmFirstName;
+                        ViewBag.EmLN = item.EmLastName;
+                        ViewBag.EmPos = item.Position;
+                    }
+                }
+                ViewBag.Employee = EmList;
+                return View();
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
+        }
+        // AddTable
+        [HttpPost]
+        public ActionResult AddTable(Table tab)
+        {
+            List<Table> TableList = this.TableCollection.FindAll().ToList<Table>();
+            if (tab != null)
+            {
+                foreach (var item in TableList)
+                {
+                    if (item.TableID.Equals(tab.TableID))
+                    {
+                        return Redirect("/Admin?res=false");
+                    }
+                }
+            }
+            tab.Available = false;
+            this.TableCollection.Save(tab);
+            return Redirect("/Admin?res=true");
+
+        }
+
+
+        //ManageTable
+        public ActionResult ManageTable()
+        {
             if (Session["id"] != null)
             {
                 List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
@@ -418,27 +551,37 @@ namespace WebApplication1.Controllers
                 return Redirect("/Admin/Login");
             }
         }
+
         [HttpGet]
-        public ActionResult EditProduct(string id)
+        public ActionResult ManageTable(string id)
         {
             if (Session["id"] != null)
             {
-                List<Product> ProList = this.ProductCollection.FindAll().ToList<Product>();
-                foreach (var item in ProList)
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                foreach (var item in EmList)
                 {
                     //Console.WriteLine(item.EmFirstName);
                     if (item.id.Equals(Session["id"]))
                     {
                         //Console.WriteLine(item.EmFirstName);
-                        ViewBag.EmFN = item.PPrice;
+                        ViewBag.EmFN = item.EmFirstName;
+                        ViewBag.EmLN = item.EmLastName;
+                        ViewBag.EmPos = item.Position;
                     }
                 }
-                ViewBag.Product = ProList;
+                ViewBag.Employee = EmList;
+
+                List<Table> TabList = this.TableCollection.FindAll().ToList<Table>();
+                ViewBag.Table = TabList;
                 ViewBag.Flag = false;
-                if (id != null)
+                foreach (var item in TabList)
                 {
-                    ViewBag.ProductEdit = this.ProductCollection.FindOneById(ObjectId.Parse(id));
-                    ViewBag.Flag = true;
+                    if (item.id.Equals(ObjectId.Parse(id)))
+                    {
+                        ViewBag.Flag = true;
+                        string temp = item.TableID.ToString();
+                        ViewBag.tabid = temp;
+                    }
                 }
 
                 return View();
@@ -449,9 +592,36 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public ActionResult CheckBill()
+        [HttpPost]
+        public ActionResult AddBill(string id, Bill bil)
         {
-            return View();
+            if (Session["id"] != null)
+            {
+                List<Table> TabList = this.TableCollection.FindAll().ToList<Table>();
+                var query = Query.EQ("TableID", bil.TableID.TableID);
+                var update = Update<Table>.Set(e => e.Available, false);
+                this.TableCollection.Update(query, update);
+
+                List<Bill> BilList = this.BillCollection.FindAll().ToList<Bill>();
+                if (bil != null)
+                {
+                    foreach (var item in BilList)
+                    {
+                        if (item.BillID.Equals(bil.BillID))
+                        {
+                            return Redirect("/Admin?res=false");
+                        }
+                    }
+                }
+                this.BillCollection.Save(bil);
+                return Redirect("/Admin?res=true");
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
         }
+
+
     }
 }
