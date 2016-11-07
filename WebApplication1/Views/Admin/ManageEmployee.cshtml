@@ -1,0 +1,111 @@
+﻿@model WebApplication1.Models.Employee
+@{
+    ViewBag.Title = "SmartBuffet; จัดการพนักงาน";
+}
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Buffet</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @Html.ViewBag.EmFN @Html.ViewBag.EmLN ( @Html.ViewBag.EmPos ) <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("Logout", "Admin")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="@Url.Action("Index", "Admin")"><i class="glyphicon glyphicon-cutlery"></i> จัดการโต๊ะอาหาร</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Stock", "Admin")"><i class="glyphicon glyphicon-shopping-cart"></i> จัดการสินค้า</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Order", "Admin")"><i class="glyphicon glyphicon-list-alt"></i> รายการที่สั่ง</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ManageEmployee", "Admin")"><i class="glyphicon glyphicon-list-alt"></i> จัดการพนักงาน</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+             <!---->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <i class="glyphicon glyphicon-shopping-cart"></i>
+                        จัดการพนักงาน
+                        <a href="@Url.Action("AddEmployee", "Admin")" type="button" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> เพิ่มพนักงาน</a>
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Position</th>
+                            <th>Tel</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (ViewBag.Employee != null)
+                        {
+                            int i = 0;
+                            foreach (var item in ViewBag.Employee)
+                            {
+                                <tr>
+                                    <td>@Html.ViewBag.Employee[i].EmID</td>
+                                    <td>@Html.ViewBag.Employee[i].Username</td>
+                                    <td>@Html.ViewBag.Employee[i].EmFirstName</td>
+                                    <td>@Html.ViewBag.Employee[i].EmLastName</td>
+                                    <td>@Html.ViewBag.Employee[i].Position</td>
+                                    <td>@Html.ViewBag.Employee[i].Tel</td>
+                                    <td><a href="@Url.Action("EditEmployee/"+ @Html.ViewBag.Employee[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข </a></td>
+                                    <td>
+                                        @if (@Html.ViewBag.Employee[i].id.ToString() != @Session["id"].ToString())
+                                        {
+                                            <a href="@Url.Action("DeleteEmployee/"+ @Html.ViewBag.Employee[i].id, "Admin")" style="color: #f6fff4;" onclick="return confirm('Are you sure !!')" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ </a>
+                                        }
+                                        else
+                                        {
+                                            <p style="color:red;">(ฉัน)</p>
+                                        }
+
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                        
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
