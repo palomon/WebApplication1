@@ -448,5 +448,10 @@ namespace WebApplication1.Controllers
                 return Redirect("/Admin/Login");
             }
         }
+
+        public ActionResult CheckBill()
+        {
+            return View();
+        }
     }
 }

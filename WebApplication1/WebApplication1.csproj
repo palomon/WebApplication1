@@ -297,6 +297,8 @@
     <Content Include="Views\Admin\ManageEmployee.cshtml" />
     <Content Include="Views\Admin\EditProduct.cshtml" />
     <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Views\Admin\CheckBill.cshtml" />
+    <Content Include="Views\Home\Customer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
