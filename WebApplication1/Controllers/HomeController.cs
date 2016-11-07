@@ -52,6 +52,13 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult Customer()
+        {
+            return View();
+        }
+
+
+
         [HttpPost]
         public ActionResult Login(Employee user)
         {

@@ -1,4 +1,32 @@
-﻿<div id="page-wrapper">
+﻿<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                <img style="margin-top:-10px; widht: 210%; height: 210%;" src="../../Image/logo.png" title="title" alt="Logo" />
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @Html.ViewBag.EmFN @Html.ViewBag.EmLN ( @Html.ViewBag.EmPos ) <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="@Url.Action("Logout", "Admin")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="page-wrapper">
 
     <div class="container-fluid">
 
@@ -58,11 +86,12 @@
                         <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="200"></td>
                     </tr>
 
-               
+
                 </tbody>
             </table>
             <div align="center">
                 <button type="submit" class="btn btn-warning btn-lg">สั่งอาหาร</button>
+                <button type="submit" class="btn btn-danger btn-lg">ยกเลิก</button>
             </div>
 
         </div>
@@ -70,3 +99,4 @@
     <!-- /.container-fluid -->
 
 </div>
+
