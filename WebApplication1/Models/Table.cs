@@ -10,9 +10,9 @@ namespace WebApplication1.Models
     public class Table
     {
         public ObjectId id;
-        private int TableID { get; set; }
-        private string Tablename { get; set; }
-        public Boolean Status { get; set; }
+        public int TableID { get; set; }
+        public string Tablename { get; set; }
+        public Boolean Available { get; set; }
 
         public Table() { }
         public Table(int id, string Tname)

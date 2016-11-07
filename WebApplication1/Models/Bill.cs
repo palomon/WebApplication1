@@ -10,12 +10,12 @@ namespace WebApplication1.Models
     public class Bill
     {
         public ObjectId id;
-        private int BillID { get; set; }
-        private Table TableID { get; set; }
-        private string BillPassword { get; set; }
-        private int Adult { get; set; }
-        private int Child { get; set; }
-        private BuffetPrice price { get; set; }
+        public int BillID { get; set; }
+        public Table TableID { get; set; }
+        public string BillPassword { get; set; }
+        public int Adult { get; set; }
+        public int Child { get; set; }
+        public BuffetPrice price { get; set; }
         public List<OrderDetail> DetailID { get; set; }
 
 

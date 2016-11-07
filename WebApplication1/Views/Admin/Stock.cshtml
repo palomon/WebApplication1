@@ -73,8 +73,8 @@
                                 <span class="progress-completed"> @Html.ViewBag.ProdList[i].Remain / @Html.ViewBag.ProdList[i].AmountMAX </span>
                             </div>
                             <div align="right">
-                                <button style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข</button>
-                                <button style="color: #f6fff4;" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ</button>
+                                <a href="@Url.Action("EditProduct/"+ @Html.ViewBag.ProdList[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข</a>
+                                <a href="@Url.Action("DeleteProduct/"+ @Html.ViewBag.ProdList[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ</a>
                             </div>
                             <hr>
                         }
@@ -88,8 +88,8 @@
                                 <span class="progress-completed"> @Html.ViewBag.ProdList[i].Remain / @Html.ViewBag.ProdList[i].AmountMAX </span>
                             </div>
                             <div align="right">
-                                <button style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข</button>
-                                <button style="color: #f6fff4;" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ</button>
+                                <a href="@Url.Action("EditProduct/"+ @Html.ViewBag.ProdList[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข</a>
+                                <a href="@Url.Action("DeleteProduct/"+ @Html.ViewBag.ProdList[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ</a>
                             </div>
                             <hr>
                         }
@@ -103,8 +103,8 @@
                                 <span class="progress-completed"> @Html.ViewBag.ProdList[i].Remain / @Html.ViewBag.ProdList[i].AmountMAX </span>
                             </div>
                             <div align="right">
-                                <button style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข</button>
-                                <button style="color: #f6fff4;" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ</button>
+                                <a href="@Url.Action("EditProduct/"+ @Html.ViewBag.ProdList[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-warning"><i class="glyphicon glyphicon-cog"></i> แก้ไข</a>
+                                <a href="@Url.Action("DeleteProduct/"+ @Html.ViewBag.ProdList[i].id, "Admin")" style="color: #f6fff4;" class="btn btn-danger"><i class="glyphicon glyphicon-minus"></i> ลบ</a>
                             </div>
                             <hr>
                         }
