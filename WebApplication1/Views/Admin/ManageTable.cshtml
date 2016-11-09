@@ -49,7 +49,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1><i class="glyphicon glyphicon-user"></i> จัดการโต๊ะ</h1>
+                        <h1><i class="glyphicon glyphicon-user"></i> จัดการโต๊ะ @Session["tabname"]</h1>
                     </div>
                 </div>
                 <hr />
@@ -62,21 +62,21 @@
                             @Html.ValidationSummary(true)
                         <!--<form class="form-horizontal">-->
                             <!-- Text input-->
+                            //<div class="form-group">
+                                //<label class="col-md-4 control-label" for=""></label>
+                                //<div class="col-md-4">
+                                    <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
+                                    //@Html.EditorFor(model => model.TableID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text", @readonly = "true", @Value = @Session["tabID"].ToString() } })
+                                    //@Html.ValidationMessageFor(model => model.TableID)
+
+                                //</div>
+                            //</div>
+
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                     <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.TableID.TableID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text", @readonly = "true", @Value = @Html.ViewBag.tabid } })
-                                    @Html.ValidationMessageFor(model => model.TableID.TableID)
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for=""></label>
-                                <div class="col-md-4">
-                                    <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.BillID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขบิล", @type = "text" } })
+                                    @Html.EditorFor(model => model.BillID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขบิล", @type = "text", @Value = @ViewBag.Billid, @readonly = "true" } })
                                     @Html.ValidationMessageFor(model => model.BillID)
 
                                 </div>

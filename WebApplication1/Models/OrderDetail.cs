@@ -10,16 +10,15 @@ namespace WebApplication1.Models
     public class OrderDetail
     {
         public ObjectId id;
-        public int DetailID { get; set; }
+        //public int DetailID { get; set; }
         public int Amount { get; set; }
-        public Product ProductID { get; set; }
-
+        public ObjectId PID { get; set; }
+        public int Status { get; set; }
         public OrderDetail() { }
-        public OrderDetail(int DetailID, int Amount,Product ProductID)
+        public OrderDetail(/*int DetailID,*/ int Amount)
         {
-            this.DetailID = DetailID;
+            //this.DetailID = DetailID;
             this.Amount = Amount;
-            this.ProductID = ProductID;
         }
     }
 }

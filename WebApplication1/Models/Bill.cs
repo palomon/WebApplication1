@@ -10,26 +10,40 @@ namespace WebApplication1.Models
     public class Bill
     {
         public ObjectId id;
-        public int BillID { get; set; }
-        public Table TableID { get; set; }
+        public string BillID { get; set; }
+        public ObjectId TableID { get; set; }
         public string BillPassword { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }
-        public BuffetPrice price { get; set; }
+        public float price { get; set; }
         public List<OrderDetail> DetailID { get; set; }
 
 
-        public Bill() { }
-        public Bill(int billid, Table Tid, string password)
+        public Bill() 
         {
-            this.BillID = billid;
-            this.TableID = Tid;
-            this.BillPassword = password;
+            this.DetailID = new List<OrderDetail>();
         }
-        public float CalTotal( int tID)
+        public Bill(string billid, string password)
         {
-            
-            return 3;
+
+            this.BillID = billid;
+            this.BillPassword = GenPassword();
+            this.DetailID = new List<OrderDetail>();
+        }
+        public string GenPassword()
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            char[] ch = chars.ToCharArray();
+            char[] rndstring = new char[8];
+            Random rd = new Random();
+
+            for (int i = 0; i < rndstring.Length; i++)
+            {
+                rndstring[i] += chars[rd.Next(chars.Length)];
+            }
+
+            string Password = new string(rndstring);
+            return Password;
         }
     }
 }

@@ -55,8 +55,37 @@ namespace WebApplication1.Controllers
                         ViewBag.EmPos = item.Position;
                     }
                 }
-                List<Table> TableList = this.TableCollection.FindAll().ToList<Table>();
-                ViewBag.TabList = TableList;
+                List<Table> TableList = this.TableCollection.FindAll().SetSortOrder(SortBy.Ascending("TableID")).ToList<Table>();
+                
+                
+                //AUTO CHECK AVALIABLE FROM BILL 
+                List<Bill> BilList = this.BillCollection.FindAll().SetSortOrder(SortBy.Ascending("BillID")).ToList<Bill>();
+                Boolean flag;
+                foreach (var item in TableList)
+                {
+                    flag = true;
+                    foreach (var bitem in BilList)
+                    {
+                        if (item.id.Equals(bitem.TableID))
+                        {
+                            flag = false;
+                            var query = Query.EQ("_id", item.id);
+                            var update = Update<Table>.Set(e => e.Available, false);
+                            this.TableCollection.Update(query, update);
+                        }
+                    }
+                    if (flag == true) 
+                    {
+                        var query = Query.EQ("_id", item.id);
+                        var update = Update<Table>.Set(e => e.Available, true);
+                        this.TableCollection.Update(query, update);
+                    }
+                }
+                //AUTO CHECK AVALIABLE FROM BILL 
+
+                List<Table> Tabletwo = this.TableCollection.FindAll().SetSortOrder(SortBy.Ascending("TableID")).ToList<Table>();
+                ViewBag.TabList = Tabletwo;
+
                 return View();
             }
             else
@@ -104,7 +133,7 @@ namespace WebApplication1.Controllers
         {
             if (Session["id"] != null)
             {
-                List<Employee> EmList = this.EmployeeCollection.FindAll().SetSortOrder(SortBy.Ascending("PID")).ToList<Employee>();
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
                 foreach (var item in EmList)
                 {
                     //Console.WriteLine(item.EmFirstName);
@@ -117,7 +146,7 @@ namespace WebApplication1.Controllers
                     }
                 }
 
-                List<Product> Prod_List = this.ProductCollection.FindAll().ToList<Product>();
+                List<Product> Prod_List = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("PID")).ToList<Product>();
                 List<double> Prod_Pecent = new List<double>();
                 foreach (var item in Prod_List)
                 {
@@ -516,7 +545,7 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-            tab.Available = false;
+            tab.Available = true;
             this.TableCollection.Save(tab);
             return Redirect("/Admin?res=true");
 
@@ -579,10 +608,15 @@ namespace WebApplication1.Controllers
                     if (item.id.Equals(ObjectId.Parse(id)))
                     {
                         ViewBag.Flag = true;
-                        string temp = item.TableID.ToString();
-                        ViewBag.tabid = temp;
+                        Session["tabID"] = item.id.ToString();
+                        Session["tabname"] = item.TableID.ToString();
                     }
                 }
+                int billc = int.Parse(this.BillCollection.Count().ToString()) + 1;
+
+                DateTime dt = DateTime.Now;
+
+                ViewBag.Billid = dt.Day.ToString() + dt.Month.ToString() + dt.Year.ToString() + Session["tabname"] + billc.ToString();
 
                 return View();
             }
@@ -597,10 +631,6 @@ namespace WebApplication1.Controllers
         {
             if (Session["id"] != null)
             {
-                List<Table> TabList = this.TableCollection.FindAll().ToList<Table>();
-                var query = Query.EQ("TableID", bil.TableID.TableID);
-                var update = Update<Table>.Set(e => e.Available, false);
-                this.TableCollection.Update(query, update);
 
                 List<Bill> BilList = this.BillCollection.FindAll().ToList<Bill>();
                 if (bil != null)
@@ -613,7 +643,16 @@ namespace WebApplication1.Controllers
                         }
                     }
                 }
+
+                bil.TableID = ObjectId.Parse(Session["tabID"].ToString());
+                bil.BillPassword = bil.GenPassword();
                 this.BillCollection.Save(bil);
+
+                //List<Table> TabList = this.TableCollection.FindAll().ToList<Table>();
+                var query = Query.EQ("_id", ObjectId.Parse(Session["tabID"].ToString()));
+                var update = Update<Table>.Set(e => e.Available, false);
+                this.TableCollection.Update(query, update);
+
                 return Redirect("/Admin?res=true");
             }
             else

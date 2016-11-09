@@ -1,4 +1,6 @@
-﻿@{
+﻿
+@model WebApplication1.Models.Bill
+@{
     ViewBag.Title = "SmartBuffet; เข้าสู่ระบบสั่งอาหาร";
 }
 <style>
@@ -58,14 +60,25 @@
 </style>
 <div class="container">
 
-    <form class="form-signin" style="margin-top: 15%">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-signin", @role = "form", @style = "margin-top: 15%" }))
+    {
+    <!-- <form class="form-signin" style="margin-top: 15%"> -->
         <h3 class="form-signin-heading text-muted">เข้าระบบสั่งอาหาร</h3>
         <br>
-        <input type="text" class="form-control" placeholder="รหัสบิล" required="" autofocus="">
+        <!--
+        <input type="text" class="form-control" placeholder="Username" required="" autofocus="">
+        -->
+        @Html.EditorFor(model => model.BillID, new { htmlAttributes = new { @class = "form-control", @placeholder = "รหัสบิล", @type = "text" } })
+        @Html.ValidationMessageFor(model => model.BillID)
+
+        <!--
         <input type="password" class="form-control" placeholder="รหัสผ่าน" required="">
+        -->
+        @Html.EditorFor(model => model.BillPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "รหัสผ่าน", @type = "password" } })
+        @Html.ValidationMessageFor(model => model.BillPassword)
         <button class="btn btn-lg btn-warning btn-block" type="submit">
             เข้าสู่ระบบ
         </button>
-    </form>
-
+    <!-- </form> -->
+    }
 </div>

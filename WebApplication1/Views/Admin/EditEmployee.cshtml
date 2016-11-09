@@ -57,7 +57,7 @@
                     <div class="col-lg-12">
                         @if (@Html.ViewBag.Flag == true)
                         {
-                        using (Html.BeginForm("EditEmp", "Admin", FormMethod.Post , new { @class = "form-horizontal", role = "form"}))
+                        using (Html.BeginForm(null, null, FormMethod.Post , new { @class = "form-horizontal", role = "form"}))
                         {
                             @Html.ValidationSummary(true)
                         <!--<form class="form-horizontal">-->

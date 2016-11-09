@@ -1,4 +1,9 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+﻿@model WebApplication1.Models.OrderDetail
+@{
+    
+}
+
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -8,19 +13,22 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                <img style="margin-top:-10px; widht: 210%; height: 210%;" src="../../Image/logo.png" title="title" alt="Logo" />
+                <img style="margin-top:-10px; width: 210%; height: 210%;" src="../../Image/logo.png" title="title" alt="Logo" />
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @Html.ViewBag.EmFN @Html.ViewBag.EmLN ( @Html.ViewBag.EmPos ) <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="@Url.Action("Logout", "Admin")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
+                @if (@Session["cid"] != null)
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> โต๊ะที่ @Html.ViewBag.cTableID | รหัสบิล @Html.ViewBag.CBill.BillID <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Logout", "Home")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
             </ul>
         </div>
     </div>
@@ -40,60 +48,66 @@
             <div class="col-lg-4"></div>
             <div class="col-lg-4"></div>
             <div class="col-lg-4">
-                <h4 align="right">รหัสบิล...</h4>
-                <h4 align="right">โต๊ะที่ ...</h4>
+                <h4 align="right">รหัสบิล @Html.ViewBag.CBill.BillID</h4>
+                <h4 align="right">โต๊ะที่ @Html.ViewBag.cTableID</h4>
             </div>
         </div>
         <div class="row">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.ValidationSummary(true)
             <table class="table table-striped">
                 <thead style="font-size: 28px;">
                     <tr>
-                        <th>รายการอาหาร</th>
-                        <th width="20">ราคา</th>
-                        <th width="20">จำนวน</th>
-                        <th width="20">เหลือ</th>
+                        <th width="83%">รายการอาหาร</th>
+                        <th width="0%"></th>
+                        <th width="5%">ราคา</th>
+                        <th width="5%">จำนวน</th>
+                        <th width="7%">เหลือ</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>ไก่</td>
-                        <td>29 /บาท</td>
-                        <td><input type="number" class="form-control" max="10" min="0" value="1"></td>
-                        <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="200"></td>
-                    </tr>
-                    <tr>
-                        <td>ไก่</td>
-                        <td>29 /บาท</td>
-                        <td><input type="number" class="form-control" max="10" min="0" value="1"></td>
-                        <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="200"></td>
-                    </tr>
-                    <tr>
-                        <td>ไก่</td>
-                        <td>29 /บาท</td>
-                        <td><input type="number" class="form-control" max="10" min="0" value="1"></td>
-                        <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="200"></td>
-                    </tr>
-                    <tr>
-                        <td>ไก่</td>
-                        <td>29 /บาท</td>
-                        <td><input type="number" class="form-control" max="10" min="0" value="5"></td>
-                        <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="200"></td>
-                    </tr>
-                    <tr>
-                        <td>ไก่</td>
-                        <td>29 /บาท</td>
-                        <td><input type="number" class="form-control" max="10" min="0" value="0"></td>
-                        <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="200"></td>
-                    </tr>
-
-
+                    @if (ViewBag.ProdList != null)
+                    {
+                        int i = 0;
+                        foreach (var item in ViewBag.ProdList)
+                        {
+                            using (Html.BeginForm("AddOd", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                            <tr>
+                                <td>@Html.ViewBag.ProdList[i].PName</td>
+                                <td></td>
+                                <td style="display: none">
+                                    @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @type = "text", @Value = @Html.ViewBag.ProdList[i].id } })
+                                    @Html.ValidationMessageFor(model => model.PID)
+                                </td>
+                                <td>@Html.ViewBag.ProdList[i].PPrice บาท</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control input-md", @type = "number", @max = "10", @min = "0", @Value = "0" } })
+                                    @Html.ValidationMessageFor(model => model.Amount)
+                                <!-- <input type="number" class="form-control" max="10" min="0" value="0"> -->
+                                </td>
+                                <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="@Html.ViewBag.ProdList[i].Remain"></td>
+                                <td>
+                                    <button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
+                                </td>
+                            </tr>
+                            }
+                            i++;
+                        }
+                    }
                 </tbody>
             </table>
             <div align="center">
                 <button type="submit" class="btn btn-warning btn-lg">สั่งอาหาร</button>
-                <button type="submit" class="btn btn-danger btn-lg">ยกเลิก</button>
+                <a href="@Url.Action("Customer", "Home")" type="submit" class="btn btn-danger btn-lg">ยกเลิก</a>
             </div>
-
+            }
         </div>
     </div>
     <!-- /.container-fluid -->
