@@ -217,6 +217,32 @@ namespace WebApplication1.Controllers
                         ViewBag.EmPos = item.Position;
                     }
                 }
+
+                List<Bill> Bill_List = this.BillCollection.FindAll().SetSortOrder(SortBy.Ascending("BillID")).ToList<Bill>();
+
+                ViewBag.BList = Bill_List;
+
+                List<Table> TableList = this.TableCollection.FindAll().SetSortOrder(SortBy.Ascending("TableID")).ToList<Table>();
+                List<string> TabName = new List<string>();
+                foreach (var item in Bill_List) 
+                {
+                    foreach (var item2 in TableList)
+                    {
+                        if (item.TableID == item2.id) 
+                        {
+                            TabName.Add(item2.Tablename);
+                        }
+                    }
+                }
+                ViewBag.Tab_n = TabName;
+
+                List<Product> PDList = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("_id")).ToList<Product>();
+                ViewBag.PList = PDList;
+
+                List<OrderDetail> OD_List = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Ascending("_id")).ToList<OrderDetail>();
+
+                ViewBag.ODList = OD_List;
+
                 return View();
             }
             else

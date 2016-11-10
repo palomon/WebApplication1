@@ -1,4 +1,9 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+﻿@model WebApplication1.Models.OrderDetail
+@{
+    ViewBag.Title = "SmartBuffet; หน้าหลัก | ลูกค้า";
+}
+
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -16,7 +21,7 @@
                 @if (@Session["cid"] != null)
                 {
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> โต๊ะที่ @Html.ViewBag.cTableID | รหัสบิล @Html.ViewBag.CBill.BillID <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:darkred"><i class="fa fa-user"></i> โต๊ะที่ @Html.ViewBag.cTableID | รหัสบิล @Html.ViewBag.CBill.BillID <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="@Url.Action("Logout", "Home")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -57,18 +62,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>คน</td>
-                        <td>499 /บาท</td>
+                        <td>เด็ก</td>
+                        <td>499 บาท</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>ผู้ใหญ่</td>
+                        <td>499 บาท</td>
                         <td>1</td>
                     </tr>
                     <tr>
                         <td>คน</td>
-                        <td>499 /บาท</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>คน</td>
-                        <td>499 /บาท</td>
+                        <td>499 บาท</td>
                         <td>1</td>
                     </tr>
                     <tr style="background-color: #90ff92;">

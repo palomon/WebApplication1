@@ -62,7 +62,14 @@ namespace WebApplication1.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            if (Session["cid"] != null)
+            {
+                return Redirect("/Home/Customer");
+            }
+            else 
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -109,11 +116,6 @@ namespace WebApplication1.Controllers
                 ViewBag.CBill = this.BillCollection.FindOneById(ObjectId.Parse(Session["cid"].ToString()));
                 List<Product> Prod_List = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("PID")).ToList<Product>();
                 //List<double> Prod_Pecent = new List<double>();
-                foreach (var item in Prod_List)
-                {
-                    //Prod_Pecent.Add((item.Remain * 1.0 / item.AmountMAX * 1.0) * 100.0);
-
-                }
                 ViewBag.ProdList = Prod_List;
                 //ViewBag.ProdPercent = Prod_Pecent;
 
@@ -129,9 +131,29 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult AddOd(OrderDetail od)
         {
-            od.Status = 0;
-            this.OrderDetailCollection.Save(od);
-            return Redirect("/Home/List");
+            int am = 0;
+            od.PID = ObjectId.Parse(od.Status);
+            od.Status = "None";
+            od.DetailID = int.Parse(this.OrderDetailCollection.Count().ToString()) + 1;
+            if (this.ProductCollection.FindOneById(od.PID).Remain >= od.Amount)
+            {
+                this.OrderDetailCollection.Save(od);
+                am = this.ProductCollection.FindOneById(od.PID).Remain - od.Amount;
+                
+                var query = Query.EQ("_id", ObjectId.Parse(Session["cid"].ToString()));
+                var updatebill = Update<Bill>.AddToSet(e => e.DetailID, od);
+                this.BillCollection.Update(query, updatebill);
+
+                query = Query.EQ("_id", od.PID);
+                var updatepro = Update<Product>.Set(e => e.Remain, am);
+                this.ProductCollection.Update(query, updatepro);
+                return Redirect("/Home/List?res=true");
+            }
+            else 
+            {
+                return Redirect("/Home/List?res=false");
+            }
+            
         }
         public ActionResult Customer()
         {
@@ -146,6 +168,9 @@ namespace WebApplication1.Controllers
                     }
                 }
 
+                List<OrderDetail> OD_List = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Ascending("_id")).ToList<OrderDetail>();
+
+                ViewBag.ODList = OD_List;
                 //List<Bill> BilList = this.BillCollection.FindAll().SetSortOrder(SortBy.Ascending("BillID")).ToList<Bill>();
                 ViewBag.CBill = this.BillCollection.FindOneById(ObjectId.Parse(Session["cid"].ToString()));
 

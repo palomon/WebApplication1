@@ -17,10 +17,10 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @Html.ViewBag.EmFN @Html.ViewBag.EmLN ( @Html.ViewBag.EmPos ) <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="@Url.Action("Logout", "Admin")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
@@ -68,78 +68,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>0001</td>
-                                    <td>3</td>
-                                    <td>เนื้อหมู</td>
-                                    <td>3</td>
-                                    <td>
-                                        <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0002</td>
-                                    <td>3</td>
-                                    <td>เนื้อหมู</td>
-                                    <td>3</td>
-                                    <td>
-                                        <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0003</td>
-                                    <td>3</td>
-                                    <td>เนื้อหมู</td>
-                                    <td>3</td>
-                                    <td>
-                                        <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0004</td>
-                                    <td>3</td>
-                                    <td>มาม่า</td>
-                                    <td>2</td>
-                                    <td>
-                                        <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0005</td>
-                                    <td>3</td>
-                                    <td>ไข่ไก่</td>
-                                    <td>6</td>
-                                    <td>
-                                        <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0006</td>
-                                    <td>4</td>
-                                    <td>เนื้อไก่</td>
-                                    <td>3</td>
-                                    <td>
-                                        <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                    </td>
-                                </tr>
+                                @if (ViewBag.ODList != null)
+                                {
+                                    int i = 0;
+                                    foreach (var item in ViewBag.BList) 
+                                    {
+                                        foreach (var item2 in ViewBag.BList[i].DetailID) 
+                                        {
+                                            <tr>
+                                            <td>@item2.DetailID</td>
+                                            <td>@Html.ViewBag.Tab_n[i]</td>
+                                                @foreach(var item3 in ViewBag.ODList)
+                                                {
+                                                    if(item2.id == item3.id)
+                                                    {
+                                                        foreach (var item4 in ViewBag.PList) 
+                                                        {
+                                                            if (item3.PID == item4.id) 
+                                                            {
+                                                                <td> @item4.PName </td>
+                                                                <td> @item3.Amount.ToString() </td>
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            <td>
+                                                <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
+                                            </td>
+                                            </tr>
+                                        }
+                                    i++;
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>

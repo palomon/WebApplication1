@@ -1,6 +1,6 @@
 ﻿@model WebApplication1.Models.OrderDetail
 @{
-    
+    ViewBag.Title = "SmartBuffet; สั่งอาหาร";
 }
 
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                <img style="margin-top:-10px; width: 210%; height: 210%;" src="../../Image/logo.png" title="title" alt="Logo" />
+                <img style="margin-top:-10px; widht: 210%; height: 210%;" src="../../Image/logo.png" title="title" alt="Logo" />
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -21,7 +21,7 @@
                 @if (@Session["cid"] != null)
                 {
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> โต๊ะที่ @Html.ViewBag.cTableID | รหัสบิล @Html.ViewBag.CBill.BillID <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:darkred"><i class="fa fa-user"></i> โต๊ะที่ @Html.ViewBag.cTableID | รหัสบิล @Html.ViewBag.CBill.BillID <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="@Url.Action("Logout", "Home")"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -53,9 +53,7 @@
             </div>
         </div>
         <div class="row">
-            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.ValidationSummary(true)
+            
             <table class="table table-striped">
                 <thead style="font-size: 28px;">
                     <tr>
@@ -64,7 +62,6 @@
                         <th width="5%">ราคา</th>
                         <th width="5%">จำนวน</th>
                         <th width="7%">เหลือ</th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -76,12 +73,13 @@
                         {
                             using (Html.BeginForm("AddOd", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                             {
+                                @Html.ValidationSummary(true)
                             <tr>
                                 <td>@Html.ViewBag.ProdList[i].PName</td>
                                 <td></td>
                                 <td style="display: none">
-                                    @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @type = "text", @Value = @Html.ViewBag.ProdList[i].id } })
-                                    @Html.ValidationMessageFor(model => model.PID)
+                                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control input-md", @type = "text", @Value = @Html.ViewBag.ProdList[i].id } })
+                                    @Html.ValidationMessageFor(model => model.Status)
                                 </td>
                                 <td>@Html.ViewBag.ProdList[i].PPrice บาท</td>
                                 <td>
@@ -91,10 +89,7 @@
                                 </td>
                                 <td style="color:yellow;"><input disabled type="number" class="form-control" min="0" value="@Html.ViewBag.ProdList[i].Remain"></td>
                                 <td>
-                                    <button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
+                                    <button class="btn btn-lg btn-warning btn-block" type="submit"><i class="glyphicon glyphicon-log-in"></i> เลือก </button>
                                 </td>
                             </tr>
                             }
@@ -104,10 +99,9 @@
                 </tbody>
             </table>
             <div align="center">
-                <button type="submit" class="btn btn-warning btn-lg">สั่งอาหาร</button>
-                <a href="@Url.Action("Customer", "Home")" type="submit" class="btn btn-danger btn-lg">ยกเลิก</a>
+                <!--<button type="submit" class="btn btn-warning btn-lg">สั่งอาหาร</button>-->
+                <a href="@Url.Action("Customer", "Home")" type="submit" class="btn btn-danger btn-lg" style="color:black">ยกเลิก</a>
             </div>
-            }
         </div>
     </div>
     <!-- /.container-fluid -->
