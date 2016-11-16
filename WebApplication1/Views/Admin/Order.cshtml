@@ -75,32 +75,32 @@
                                     {
                                         foreach (var item2 in ViewBag.BList[i].DetailID) 
                                         {
-                                            <tr>
-                                            <td>@item2.DetailID</td>
-                                            <td>@Html.ViewBag.Tab_n[i]</td>
-                                                @foreach(var item3 in ViewBag.ODList)
+                                                foreach (var item3 in ViewBag.ODList)
                                                 {
-                                                    if(item2.id == item3.id)
+                                                    if (item2.id == item3.id)
                                                     {
-                                                        foreach (var item4 in ViewBag.PList) 
+                                                        foreach (var item4 in ViewBag.PList)
                                                         {
-                                                            if (item3.PID == item4.id) 
+                                                            if (item3.PID == item4.id)
                                                             {
-                                                                <td> @item4.PName </td>
-                                                                <td> @item3.Amount.ToString() </td>
+                                                                <tr>
+                                                                    <td>@item2.DetailID</td>
+                                                                    <td>@Html.ViewBag.Tab_n[i]</td>
+                                                                    <td>@item4.PName</td>
+                                                                    <td>@item3.Amount.ToString()</td>
+                                                                    <td>
+                                                                        <a class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="@Url.Action("deleteOrder/" + @item3.id + "|" + @item.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
+                                                                    </td>
+                                                                </tr>
                                                             }
                                                         }
                                                     }
                                                 }
-                                            <td>
-                                                <button class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</button>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</button>
-                                            </td>
-                                            </tr>
                                         }
-                                    i++;
+                                        i++;
                                     }
                                 }
                             </tbody>
