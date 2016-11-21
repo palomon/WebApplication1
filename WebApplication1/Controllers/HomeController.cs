@@ -174,8 +174,12 @@ namespace WebApplication1.Controllers
                 }
 
                 ViewBag.CBill = this.BillCollection.FindOneById(ObjectId.Parse(Session["cid"].ToString()));
-                List<Product> Prod_List = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("PID")).ToList<Product>();
-                ViewBag.ProdList = Prod_List;
+                
+                List<BuffetPrice> BP_List = this.BuffetPriceCollection.FindAll().SetSortOrder(SortBy.Ascending("BuffetID")).ToList<BuffetPrice>();
+                ViewBag.BPList = BP_List;
+
+                List<OrderDetail> OD_List = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Ascending("DetailID")).ToList<OrderDetail>();
+                ViewBag.ODList = OD_List;
 
                 return View();
             }

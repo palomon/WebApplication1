@@ -669,6 +669,21 @@ namespace WebApplication1.Controllers
                         }
                     }
                 }
+                List<BuffetPrice> BP_List = this.BuffetPriceCollection.FindAll().SetSortOrder(SortBy.Ascending("BuffetID")).ToList<BuffetPrice>();
+                ViewBag.BPList = BP_List;
+
+                bil.price = 0;
+                foreach (var item in BP_List)
+                {
+                    if (item.BuffetID == 1)
+                    {
+                        bil.price += bil.Child * item.BPrice;
+                    }
+                    else if (item.BuffetID == 2)
+                    {
+                        bil.price += bil.Adult * item.BPrice;
+                    }
+                }
 
                 bil.TableID = ObjectId.Parse(Session["tabID"].ToString());
                 bil.BillPassword = bil.GenPassword();
@@ -708,9 +723,16 @@ namespace WebApplication1.Controllers
 
         public ActionResult serveOrder(string id)
         {
-            var query = Query.EQ("_id", ObjectId.Parse(id));
-            var update = Update<OrderDetail>.Set(e => e.Status, "Serve");
-            this.OrderDetailCollection.Update(query, update);
+            
+            var query = Query.EQ("DetailID._id", ObjectId.Parse(id));
+            float price = this.BillCollection.FindOne(query).price;
+            price += this.ProductCollection.FindOneById(this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).PID).PPrice;
+            var updateBill = Update<Bill>.Set(e => e.price, price);
+            this.BillCollection.Update(query, updateBill);
+
+            query = Query.EQ("_id", ObjectId.Parse(id));
+            var updateOD = Update<OrderDetail>.Set(e => e.Status, "Serve");
+            this.OrderDetailCollection.Update(query, updateOD);
 
             return Redirect("/Admin/Order");
         }
