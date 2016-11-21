@@ -78,7 +78,7 @@
                                         <!-- 
                                         <input id="" name="" type="text" placeholder="username" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "username", @type = "text" } })
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "username", @type = "text", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Username)
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                         <!--
                                         <input id="" name="" type="password" placeholder="password" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "password", @type = "password" } })
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "password", @type = "password", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Password)
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                         <!--
                                         <input id="" name="" type="text" placeholder="ชื่อจริง" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.EmFirstName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อจริง", @type = "text" } })
+                                        @Html.EditorFor(model => model.EmFirstName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อจริง", @type = "text", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.EmFirstName)
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                         <!--
                                         <input id="" name="" type="text" placeholder="ชื่อสกุล" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.EmLastName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสกุล", @type = "text" } })
+                                        @Html.EditorFor(model => model.EmLastName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสกุล", @type = "text", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.EmLastName)
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                             <option value="admin">กูเอง</option>
                                         </select>
                                         -->
-                                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ตำแหน่ง", @type = "text" } })
+                                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ตำแหน่ง", @type = "text", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Position)
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                         <!--
                                         <input id="" name="" type="text" placeholder="เบอร์โทรศัพท์" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เบอร์โทรศัพท์", @type = "text" } })
+                                        @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เบอร์โทรศัพท์", @type = "text", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Tel)
                                     </div>
                                 </div>

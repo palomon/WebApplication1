@@ -115,9 +115,7 @@ namespace WebApplication1.Controllers
 
                 ViewBag.CBill = this.BillCollection.FindOneById(ObjectId.Parse(Session["cid"].ToString()));
                 List<Product> Prod_List = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("PID")).ToList<Product>();
-                //List<double> Prod_Pecent = new List<double>();
                 ViewBag.ProdList = Prod_List;
-                //ViewBag.ProdPercent = Prod_Pecent;
 
                 return View();
             }
@@ -134,7 +132,14 @@ namespace WebApplication1.Controllers
             int am = 0;
             od.PID = ObjectId.Parse(od.Status);
             od.Status = "None";
-            od.DetailID = int.Parse(this.OrderDetailCollection.Count().ToString()) + 1;
+            od.DetailID = 0;
+            List<OrderDetail> ODList = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Descending("DetailID")).SetLimit(1).ToList<OrderDetail>();
+            foreach (var item in ODList)
+            {
+                od.DetailID = item.DetailID;
+            }
+            od.DetailID += 1;
+            //od.DetailID = int.Parse(this.OrderDetailCollection.Count().ToString()) + 1;
             if (this.ProductCollection.FindOneById(od.PID).Remain >= od.Amount)
             {
                 this.OrderDetailCollection.Save(od);
@@ -168,11 +173,9 @@ namespace WebApplication1.Controllers
                     }
                 }
 
-                List<OrderDetail> OD_List = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Ascending("_id")).ToList<OrderDetail>();
-
-                ViewBag.ODList = OD_List;
-                //List<Bill> BilList = this.BillCollection.FindAll().SetSortOrder(SortBy.Ascending("BillID")).ToList<Bill>();
                 ViewBag.CBill = this.BillCollection.FindOneById(ObjectId.Parse(Session["cid"].ToString()));
+                List<Product> Prod_List = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("PID")).ToList<Product>();
+                ViewBag.ProdList = Prod_List;
 
                 return View();
             }

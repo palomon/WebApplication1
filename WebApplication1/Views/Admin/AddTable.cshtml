@@ -64,7 +64,7 @@
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                     <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.TableID , new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text" } })
+                                    @Html.EditorFor(model => model.TableID , new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.TableID)
 
                                 </div>
@@ -75,7 +75,7 @@
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="ชื่อสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.Tablename, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสินค้า", @type = "text" } })
+                                    @Html.EditorFor(model => model.Tablename, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อโต๊ะ", @type = "text" , @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.Tablename)
                                 </div>
                             </div>

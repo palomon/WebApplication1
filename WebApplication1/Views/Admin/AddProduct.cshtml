@@ -64,7 +64,7 @@
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                    <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "รหัสสินค้า", @type = "text" } })
+                                    @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "รหัสสินค้า", @type = "text", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.PID)
 
                                 </div>
@@ -75,7 +75,7 @@
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                  <!--   <input id="" name="" type="text" placeholder="ชื่อสินค้า" class="form-control input-md" required=""> -->
-@Html.EditorFor(model => model.PName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสินค้า", @type = "text" } })
+@Html.EditorFor(model => model.PName, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ชื่อสินค้า", @type = "text", @required = "required" } })
 @Html.ValidationMessageFor(model => model.PName)
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                  <!--   <input id="" name="" type="text" placeholder="ราคาสินค้า" class="form-control input-md" required=""> -->
-@Html.EditorFor(model => model.PPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคาสินค้า", @type = "text" } })
+@Html.EditorFor(model => model.PPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคาสินค้า", @type = "text", @required = "required" } })
 @Html.ValidationMessageFor(model => model.PPrice)
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 <label class="col-md-4 control-label" for=""></label>
                                 <div class="col-md-4">
                                  <!--   <input id="" name="" type="text" placeholder="จำนวน" class="form-control input-md" required=""> -->
-@Html.EditorFor(model => model.AmountMAX, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวน", @type = "text" } })
+@Html.EditorFor(model => model.AmountMAX, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวน", @type = "text", @required = "required" } })
 @Html.ValidationMessageFor(model => model.AmountMAX)
                                 </div>
                             </div>

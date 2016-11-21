@@ -689,12 +689,19 @@ namespace WebApplication1.Controllers
 
         public ActionResult deleteOrder(string id)
         {
-            var query = Query.EQ("_id", ObjectId.Parse(id));
+            int am = this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).Amount;
+            am += this.ProductCollection.FindOneById(this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).PID).Remain;
+            
+            var query = Query.EQ("_id", this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).PID );
+            var update = Update<Product>.Set(e => e.Remain, am);
+            this.ProductCollection.Update(query, update);
+
+            query = Query.EQ("_id", ObjectId.Parse(id));
             this.OrderDetailCollection.Remove(query);
             
             query = Query.EQ("DetailID._id", ObjectId.Parse(id));
-            var update = Update.Pull("DetailID", new BsonDocument(){{ "_id", ObjectId.Parse(id) }});
-            this.BillCollection.Update(query, update);
+            var updateBill = Update.Pull("DetailID", new BsonDocument(){{ "_id", ObjectId.Parse(id) }});
+            this.BillCollection.Update(query, updateBill);
 
             return Redirect("/Admin/Order");
         }

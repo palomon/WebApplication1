@@ -68,13 +68,13 @@
         <!--
         <input type="text" class="form-control" placeholder="Username" required="" autofocus="">
         -->
-        @Html.EditorFor(model => model.BillID, new { htmlAttributes = new { @class = "form-control", @placeholder = "รหัสบิล", @type = "text" } })
+        @Html.EditorFor(model => model.BillID, new { htmlAttributes = new { @class = "form-control", @placeholder = "รหัสบิล", @type = "text", @required = "required" } })
         @Html.ValidationMessageFor(model => model.BillID)
 
         <!--
         <input type="password" class="form-control" placeholder="รหัสผ่าน" required="">
         -->
-        @Html.EditorFor(model => model.BillPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "รหัสผ่าน", @type = "password" } })
+        @Html.EditorFor(model => model.BillPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "รหัสผ่าน", @type = "password", @required = "required" } })
         @Html.ValidationMessageFor(model => model.BillPassword)
         <button class="btn btn-lg btn-warning btn-block" type="submit">
             เข้าสู่ระบบ
