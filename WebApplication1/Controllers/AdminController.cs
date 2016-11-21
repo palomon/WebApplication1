@@ -430,7 +430,7 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-            Prod.Remain = Prod.AmountMAX;
+            Prod.AmountMAX = 100;
             this.ProductCollection.Save(Prod);
             return Redirect("/Admin/AddProduct?result=true");
 
@@ -509,7 +509,7 @@ namespace WebApplication1.Controllers
                 var query = Query.EQ("PName", prod.PName);
                 var update = Update<Product>.Set(e => e.PPrice, prod.PPrice);
                 this.ProductCollection.Update(query, update);
-                update = Update<Product>.Set(e => e.AmountMAX, prod.AmountMAX);
+                update = Update<Product>.Set(e => e.Remain, prod.Remain);
                 this.ProductCollection.Update(query, update);
                 return Redirect("/Admin/Stock");
             }
@@ -702,6 +702,15 @@ namespace WebApplication1.Controllers
             query = Query.EQ("DetailID._id", ObjectId.Parse(id));
             var updateBill = Update.Pull("DetailID", new BsonDocument(){{ "_id", ObjectId.Parse(id) }});
             this.BillCollection.Update(query, updateBill);
+
+            return Redirect("/Admin/Order");
+        }
+
+        public ActionResult serveOrder(string id)
+        {
+            var query = Query.EQ("_id", ObjectId.Parse(id));
+            var update = Update<OrderDetail>.Set(e => e.Status, "Serve");
+            this.OrderDetailCollection.Update(query, update);
 
             return Redirect("/Admin/Order");
         }

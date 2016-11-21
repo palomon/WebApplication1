@@ -15,7 +15,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Buffet</a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Admin")">Buffet</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -96,8 +96,8 @@
                                 <label class="col-md-4 control-label" for="">จำนวนสินค้า</label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="จำนวนสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.AmountMAX, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.AmountMAX, @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.AmountMAX)
+                                    @Html.EditorFor(model => model.Remain, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.Remain, @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Remain)
                                 </div>
                             </div>
                             <div align="center">

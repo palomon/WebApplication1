@@ -77,7 +77,7 @@
                                         {
                                                 foreach (var item3 in ViewBag.ODList)
                                                 {
-                                                    if (item2.id == item3.id)
+                                                    if (item2.id == item3.id && item3.Status != "Serve")
                                                     {
                                                         foreach (var item4 in ViewBag.PList)
                                                         {
@@ -89,10 +89,10 @@
                                                                     <td>@item4.PName</td>
                                                                     <td>@item3.Amount.ToString()</td>
                                                                     <td>
-                                                                        <a class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</a>
+                                                                        <a style="color:white" href="@Url.Action("serveOrder/" + @item3.id, "Admin")" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</a>
                                                                     </td>
                                                                     <td>
-                                                                        <a href="@Url.Action("deleteOrder/" + @item3.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
+                                                                        <a style="color:white" href="@Url.Action("deleteOrder/" + @item3.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
                                                                     </td>
                                                                 </tr>
                                                             }
