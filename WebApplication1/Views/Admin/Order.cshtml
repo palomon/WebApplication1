@@ -69,40 +69,41 @@
                             </thead>
                             <tbody>
                                 @if (ViewBag.ODList != null)
-                                {
-                                    int i = 0;
-                                    foreach (var item in ViewBag.BList) 
-                                    {
-                                        foreach (var item2 in ViewBag.BList[i].DetailID) 
-                                        {
-                                                foreach (var item3 in ViewBag.ODList)
-                                                {
-                                                    if (item2.id == item3.id && item3.Status != "Serve")
-                                                    {
-                                                        foreach (var item4 in ViewBag.PList)
-                                                        {
-                                                            if (item3.PID == item4.id)
-                                                            {
+								{
+
+									foreach (var orderD in ViewBag.ODList)
+									{
+										int i = 0;
+										foreach (var bill in ViewBag.BList)
+										{
+											foreach (var billDetail in bill.DetailID)
+											{
+												if (billDetail.id == orderD.id && orderD.Status != "Serve")
+												{
+													foreach (var prod in ViewBag.PList)
+													{
+														if (orderD.PID == prod.id)
+														{
                                                                 <tr>
-                                                                    <td>@item3.DetailID</td>
+                                                                    <td>@orderD.DetailID</td>
                                                                     <td>@Html.ViewBag.Tab_n[i]</td>
-                                                                    <td>@item4.PName</td>
-                                                                    <td>@item3.Amount.ToString()</td>
+                                                                    <td>@prod.PName</td>
+                                                                    <td>@orderD.Amount.ToString()</td>
                                                                     <td>
-                                                                        <a style="color:white" href="@Url.Action("serveOrder/" + @item3.id, "Admin")" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</a>
+                                                                        <a style="color:white" href="@Url.Action("serveOrder/" + @orderD.id, "Admin")" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</a>
                                                                     </td>
                                                                     <td>
-                                                                        <a style="color:white" href="@Url.Action("deleteOrder/" + @item3.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
+                                                                        <a style="color:white" href="@Url.Action("deleteOrder/" + @orderD.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
                                                                     </td>
                                                                 </tr>
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                        }
-                                        i++;
-                                    }
-                                }
+}
+													}
+												}
+											}
+											i++;
+										}
+									}
+								}
                             </tbody>
                         </table>
                     </div>

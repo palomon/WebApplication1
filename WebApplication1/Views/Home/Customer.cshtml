@@ -42,6 +42,9 @@
         <div class="row">
             <div class="page-header">
                 <b><h1 align="center">โต๊ะ @Html.ViewBag.cTableID</h1></b>
+				<div align="center">
+					<a style="color:#000000" href="@Url.Action("List", "Home")" type="submit" class="btn btn-lg"><i class="glyphicon-plus"></i> สั่งอาหาร</a>
+				</div>
             </div>
         </div>
         <div class="row">
@@ -55,6 +58,7 @@
             <table class="table table-striped">
                 <thead style="font-size: 28px;">
                     <tr>
+						<th width="20">#</th>
                         <th>รายการ</th>
                         <th width="20">ราคา</th>
                         <th width="20">จำนวน</th>
@@ -62,17 +66,57 @@
                 </thead>
                 <tbody>
                     <tr>
+						<td></td>
                         <td>เด็ก</td>
                         <td>@Html.ViewBag.BPList[0].BPrice บาท</td>
                         <td>@Html.ViewBag.CBill.Child</td>
                     </tr>
                     <tr>
+						<td></td>
                         <td>ผู้ใหญ่</td>
                         <td>@Html.ViewBag.BPList[1].BPrice บาท</td>
                         <td>@Html.ViewBag.CBill.Adult</td>
                     </tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
 
+					
+					@foreach (var bill in ViewBag.CBill.DetailID)
+					{
+						foreach (var orderD in ViewBag.ODList)
+						{
+							if (bill.id == orderD.id)
+							{
+								foreach (var prod in ViewBag.PList)
+								{
+									if ((orderD.PID == prod.id) && (prod.PPrice > 0))
+									{
+										<tr>
+											<td>@orderD.DetailID</td>
+											<td>@prod.PName</td>
+											<td>@prod.PPrice บาท</td>
+											@if (orderD.Status == "Serve")
+											{
+												<td>@orderD.Amount &nbsp&nbsp&nbsp<i style="color:forestgreen;" class="glyphicon glyphicon-ok"></i></td>
+}
+											else
+											{
+												<td>@orderD.Amount &nbsp&nbsp&nbsp<i style="color:red;" class="glyphicon glyphicon-remove"></i></td>
+}
+										</tr>
+										
+									}
+								}
+							}
+
+						}
+					}
                     <tr style="background-color: #90ff92;">
+						<td style="font-size: 28px;"></td>
                         <td style="font-size: 28px;">ยอดรวม</td>
                         <td style="font-size: 24px;">@Html.ViewBag.CBill.price</td>
                         <td style="font-size: 28px;">บาท</td>
@@ -81,7 +125,6 @@
             </table>
             <div align="center">
                 <a style="color:#000000" href="@Url.Action("List", "Home")" type="submit" class="btn btn-lg"><i class="glyphicon-plus"></i> สั่งอาหาร</a>
-                <a type="submit" class="btn btn-danger btn-lg">เช็คบิล</a>
             </div>
         </div>
     </div>

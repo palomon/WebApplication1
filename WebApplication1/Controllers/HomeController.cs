@@ -181,6 +181,9 @@ namespace WebApplication1.Controllers
                 List<OrderDetail> OD_List = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Ascending("DetailID")).ToList<OrderDetail>();
                 ViewBag.ODList = OD_List;
 
+                List<Product> PDList = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("_id")).ToList<Product>();
+                ViewBag.PList = PDList;
+
                 return View();
             }
             else
