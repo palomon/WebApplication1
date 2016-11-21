@@ -73,7 +73,7 @@
                             //</div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for=""></label>
+                                <label class="col-md-4 control-label" for="">เลขบิล</label>
                                 <div class="col-md-4">
                                     <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
                                     @Html.EditorFor(model => model.BillID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขบิล", @type = "text", @Value = @ViewBag.Billid, @readonly = "true" } })
@@ -84,7 +84,7 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for=""></label>
+                                <label class="col-md-4 control-label" for="">จำนวนผู้ใหญ่</label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="ชื่อสินค้า" class="form-control input-md" required=""> -->
                                     @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนผู้ใหญ่", @type = "text" } })
@@ -93,7 +93,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for=""></label>
+                                <label class="col-md-4 control-label" for="">จำนวนเด็ก</label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="ชื่อสินค้า" class="form-control input-md" required=""> -->
                                     @Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนเด็ก", @type = "text" } })

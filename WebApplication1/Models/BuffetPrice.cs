@@ -11,10 +11,10 @@ namespace WebApplication1.Models
     {
         public ObjectId id;
         public int BuffetID { get; set; }
-        public string BPrice { get; set; }
+        public float BPrice { get; set; }
 
         public BuffetPrice() { }
-        public BuffetPrice(int BuffetID,string BPrice)
+        public BuffetPrice(int BuffetID,float BPrice)
         {
             this.BuffetID = BuffetID;
             this.BPrice = BPrice;

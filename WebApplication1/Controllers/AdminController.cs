@@ -715,5 +715,49 @@ namespace WebApplication1.Controllers
             return Redirect("/Admin/Order");
         }
 
+        public ActionResult EditPrice()
+        {
+            if (Session["id"] != null)
+            {
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                foreach (var item in EmList)
+                {
+                    //Console.WriteLine(item.EmFirstName);
+                    if (item.id.Equals(Session["id"]))
+                    {
+                        //Console.WriteLine(item.EmFirstName);
+                        ViewBag.EmFN = item.EmFirstName;
+                        ViewBag.EmLN = item.EmLastName;
+                        ViewBag.EmPos = item.Position;
+                    }
+                }
+                ViewBag.Employee = EmList;
+                
+                return View();
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
+        }
+        // EditPrice
+        [HttpPost]
+        public ActionResult EditPrice(BuffetPrice BP)
+        {
+
+            if (Session["id"] != null)
+            {
+                
+                var query = Query.EQ("BuffetID", BP.BuffetID);
+                var update = Update<BuffetPrice>.Set(e => e.BPrice, BP.BPrice);
+                this.BuffetPriceCollection.Update(query, update);
+                return Redirect("/Admin/EditPrice");
+            }
+            else
+            {
+                return Redirect("/Admin/EditPrice");
+            }
+        }
+
     }
 }

@@ -301,6 +301,7 @@
     <Content Include="Views\Admin\ManageEmployee.cshtml" />
     <Content Include="Views\Admin\AddTable.cshtml" />
     <Content Include="Views\Admin\ManageTable.cshtml" />
+    <Content Include="Views\Admin\EditPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
