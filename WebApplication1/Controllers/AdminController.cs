@@ -60,6 +60,7 @@ namespace WebApplication1.Controllers
                 
                 //AUTO CHECK AVALIABLE FROM BILL 
                 List<Bill> BilList = this.BillCollection.FindAll().SetSortOrder(SortBy.Ascending("BillID")).ToList<Bill>();
+                List<Bill> Bill4Show = new List<Bill>();
                 Boolean flag;
                 foreach (var item in TableList)
                 {
@@ -72,6 +73,7 @@ namespace WebApplication1.Controllers
                             var query = Query.EQ("_id", item.id);
                             var update = Update<Table>.Set(e => e.Available, false);
                             this.TableCollection.Update(query, update);
+                            Bill4Show.Add(bitem);
                         }
                     }
                     if (flag == true) 
@@ -83,6 +85,7 @@ namespace WebApplication1.Controllers
                 }
                 //AUTO CHECK AVALIABLE FROM BILL 
 
+                ViewBag.Bill4Show = Bill4Show;
                 List<Table> Tabletwo = this.TableCollection.FindAll().SetSortOrder(SortBy.Ascending("TableID")).ToList<Table>();
                 ViewBag.TabList = Tabletwo;
 
@@ -430,7 +433,7 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-            Prod.AmountMAX = 100;
+            Prod.AmountMAX = 500;
             this.ProductCollection.Save(Prod);
             return Redirect("/Admin/AddProduct?result=true");
 
@@ -794,7 +797,8 @@ namespace WebApplication1.Controllers
             
             var query = Query.EQ("DetailID._id", ObjectId.Parse(id));
             float price = this.BillCollection.FindOne(query).price;
-            price += this.ProductCollection.FindOneById(this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).PID).PPrice;
+            int amount = this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).Amount;
+            price += (this.ProductCollection.FindOneById(this.OrderDetailCollection.FindOneById(ObjectId.Parse(id)).PID).PPrice) * amount;
             var updateBill = Update<Bill>.Set(e => e.price, price);
             this.BillCollection.Update(query, updateBill);
 

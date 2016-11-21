@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebApplication1.Models.Bill
+@{
     ViewBag.Title = "SmartBuffet; จัดการโต๊ะ";
 }
 <html lang="en">
@@ -53,7 +54,6 @@
                             จัดการโต๊ะอาหาร
                             <div class="btn-group" role="group" aria-label="...">
                                 <a href="@Url.Action("AddTable", "Admin")" type="button" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> เพิ่มโต๊ะ</a>
-                                <a href="@Url.Action("Index", "Admin")" type="button" class="btn btn-default"><i class="glyphicon glyphicon-minus"></i> ลบโต๊ะ</a>
                             </div>
                         </h1>
                     </div>
@@ -85,48 +85,39 @@
                                     if (item.Available == true)
                                     {
                                         //Green
-                                        <td style="background-color: #4cae4c;"><a style="color:white" href="@Url.Action("ManageTable/"+ @Html.ViewBag.TabList[i].id, "Admin")">โต๊ะ @Html.ViewBag.TabList[i].TableID</a></td>
+                                        <td style="background-color: #4cae4c;"><a style="color:white" href="@Url.Action("ManageTable/"+ @Html.ViewBag.TabList[i].id, "Admin")">โต๊ะ @Html.ViewBag.TabList[i].TableID</a><br><br><br><a href="@Url.Action("deleteTable/" + @Html.ViewBag.TabList[i].id, "Admin")" type="button" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i> ลบโต๊ะ</a></td>
 									}
 									else
 									{
 										//RED
-                                        <td style="background-color: #c9302c;">โต๊ะ @Html.ViewBag.TabList[i].TableID<br><br><br><a href="@Url.Action("CheckBill/"+ @Html.ViewBag.TabList[i].id, "Admin")" type="button" class="btn btn-default">เช็คบิล</a></td>
-										
+                                        <td style="background-color: #c9302c;">โต๊ะ @Html.ViewBag.TabList[i].TableID<br><br><br>
+										<a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_@item.TableID">ดูข้อมูล</a>
+												<div class="modal fade" id="myModal_@item.TableID" role="dialog">
+													<div class="modal-dialog">
+														<!-- Modal content-->
+														<div class="modal-content" style="color:black;">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal">&times;</button>
+																		<h4 class="modal-title">ข้อมูลโต๊ะ @item.TableID</h4>
+																	</div>
+																	<div class="modal-body">
+																		<p>
+																			Username : @Html.ViewBag.Bill4Show[i].BillID <br />
+																			Password : @Html.ViewBag.Bill4Show[i].BillPassword
+																		</p>
+																	</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<br />
+												<a href="@Url.Action("CheckBill/"+ @Html.ViewBag.TabList[i].id, "Admin")" type="button" class="btn btn-default">เช็คบิล</a>
+											</td>
 									}
 									i++;
-                                    <!--<table>
-                <tr align="center">
-                    <td style="background-color: #4cae4c;">โต๊ะ 1</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 2</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 3</td>
-                    <td style="background-color: #c9302c;">โต๊ะ 4</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 5</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 6</td>
-                    <td style="background-color: #c9302c;">โต๊ะ 7</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 8</td>
-                </tr>
-                <tr align="center">
-                    <td style="background-color: #c9302c;">โต๊ะ 9</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 10</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 11</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 12</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 13</td>
-                    <td style="background-color: #c9302c;">โต๊ะ 14</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 15</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 16</td>
-                </tr>
-                <tr align="center">
-                    <td style="background-color: #4cae4c;">โต๊ะ 17</td>
-                    <td style="background-color: #c9302c;">โต๊ะ 18</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 19</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 20</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 21</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 22</td>
-                    <td style="background-color: #c9302c;">โต๊ะ 23</td>
-                    <td style="background-color: #4cae4c;">โต๊ะ 24</td>
-                </tr>
-            </table>-->
-                                }
+								}
                             </tr>
                             </table>
                         }
