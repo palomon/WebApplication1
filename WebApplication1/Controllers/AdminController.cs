@@ -689,19 +689,14 @@ namespace WebApplication1.Controllers
 
         public ActionResult deleteOrder(string id)
         {
-            string[] tmpid1 = id.Split('|');
-
-            var query = Query.EQ("_id", ObjectId.Parse(tmpid1[0]));
+            var query = Query.EQ("_id", ObjectId.Parse(id));
             this.OrderDetailCollection.Remove(query);
-
-            /*query = Query.EQ("_id", tmpid1[1]);
-            Console.WriteLine(tmpid1[0]);
             
-            var updateBill = Update.Pull("DetailID", Query.EQ("_id", tmpid1[0]));
+            query = Query.EQ("DetailID._id", ObjectId.Parse(id));
+            var update = Update.Pull("DetailID", new BsonDocument(){{ "_id", ObjectId.Parse(id) }});
+            this.BillCollection.Update(query, update);
 
-            this.BillCollection.Update(query, updateBill);*/
-
-            return Redirect("/Admin/Order?" + tmpid1[1]);
+            return Redirect("/Admin/Order");
         }
 
     }

@@ -84,7 +84,7 @@
                                                             if (item3.PID == item4.id)
                                                             {
                                                                 <tr>
-                                                                    <td>@item2.DetailID</td>
+                                                                    <td>@item3.DetailID</td>
                                                                     <td>@Html.ViewBag.Tab_n[i]</td>
                                                                     <td>@item4.PName</td>
                                                                     <td>@item3.Amount.ToString()</td>
@@ -92,7 +92,7 @@
                                                                         <a class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i> เสริ๋ฟ</a>
                                                                     </td>
                                                                     <td>
-                                                                        <a href="@Url.Action("deleteOrder/" + @item3.id + "|" + @item.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
+                                                                        <a href="@Url.Action("deleteOrder/" + @item3.id, "Admin")" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> ยกเลิก</a>
                                                                     </td>
                                                                 </tr>
                                                             }
