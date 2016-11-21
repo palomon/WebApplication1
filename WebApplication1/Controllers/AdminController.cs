@@ -204,6 +204,13 @@ namespace WebApplication1.Controllers
             return Redirect("/Admin/ManageEmployee");
         }
 
+        public ActionResult DeleteTable(string id)
+        {
+            var query = Query.EQ("_id", ObjectId.Parse(id));
+            this.TableCollection.Remove(query);
+            return Redirect("/Admin/Index");
+        }
+
         public ActionResult Order()
         {
             if (Session["id"] != null)

@@ -19,5 +19,14 @@ namespace WebApplication1.Models
         public string Tel { get; set; }
 
         public Employee() { }
-      }
+        public Employee(string Username, string Password, string EmFirstName, string EmLastName, string Tel, string Position)
+        {
+            this.Username = Username;
+            this.Password = Password;
+            this.EmFirstName = EmFirstName;
+            this.EmLastName = EmLastName;
+            this.Tel = Tel;
+            this.Position = Position;
+        }
+    }
 }
