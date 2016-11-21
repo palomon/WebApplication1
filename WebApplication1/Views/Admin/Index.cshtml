@@ -86,13 +86,14 @@
                                     {
                                         //Green
                                         <td style="background-color: #4cae4c;"><a style="color:white" href="@Url.Action("ManageTable/"+ @Html.ViewBag.TabList[i].id, "Admin")">โต๊ะ @Html.ViewBag.TabList[i].TableID</a></td>
-                                    }
-                                    else
-                                    {
-                                        //RED
-                                        <td style="background-color: #c9302c;">โต๊ะ @Html.ViewBag.TabList[i].TableID</td>
-                                    }
-                                    i++;
+									}
+									else
+									{
+										//RED
+                                        <td style="background-color: #c9302c;">โต๊ะ @Html.ViewBag.TabList[i].TableID<br><br><br><a href="@Url.Action("CheckBill/"+ @Html.ViewBag.TabList[i].id, "Admin")" type="button" class="btn btn-default">เช็คบิล</a></td>
+										
+									}
+									i++;
                                     <!--<table>
                 <tr align="center">
                     <td style="background-color: #4cae4c;">โต๊ะ 1</td>

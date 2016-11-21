@@ -526,10 +526,78 @@ namespace WebApplication1.Controllers
             return Redirect("/Admin/Stock");
         }
 
-
         public ActionResult CheckBill()
         {
-            return View();
+            if (Session["id"] != null)
+            {
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                foreach (var item in EmList)
+                {
+                    //Console.WriteLine(item.EmFirstName);
+                    if (item.id.Equals(Session["id"]))
+                    {
+                        //Console.WriteLine(item.EmFirstName);
+                        ViewBag.EmFN = item.EmFirstName;
+                        ViewBag.EmLN = item.EmLastName;
+                        ViewBag.EmPos = item.Position;
+                    }
+                }
+                ViewBag.Employee = EmList;
+                
+                return View();
+
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CheckBill(string id)
+        {
+            if (Session["id"] != null)
+            {
+                List<Employee> EmList = this.EmployeeCollection.FindAll().ToList<Employee>();
+                foreach (var item in EmList)
+                {
+                    //Console.WriteLine(item.EmFirstName);
+                    if (item.id.Equals(Session["id"]))
+                    {
+                        //Console.WriteLine(item.EmFirstName);
+                        ViewBag.EmFN = item.EmFirstName;
+                        ViewBag.EmLN = item.EmLastName;
+                        ViewBag.EmPos = item.Position;
+                    }
+                }
+                ViewBag.Employee = EmList;
+
+                ViewBag.TableNow = this.TableCollection.FindOne(Query.EQ("_id", ObjectId.Parse(id)));
+                ViewBag.CBill = this.BillCollection.FindOne(Query.EQ("TableID", ObjectId.Parse(id)));
+
+                List<BuffetPrice> BP_List = this.BuffetPriceCollection.FindAll().SetSortOrder(SortBy.Ascending("BuffetID")).ToList<BuffetPrice>();
+                ViewBag.BPList = BP_List;
+
+                List<OrderDetail> OD_List = this.OrderDetailCollection.FindAll().SetSortOrder(SortBy.Ascending("DetailID")).ToList<OrderDetail>();
+                ViewBag.ODList = OD_List;
+
+                List<Product> PDList = this.ProductCollection.FindAll().SetSortOrder(SortBy.Ascending("_id")).ToList<Product>();
+                ViewBag.PList = PDList;
+
+                return View();
+                
+            }
+            else
+            {
+                return Redirect("/Admin/Login");
+            }
+        }
+
+        public ActionResult deleteBill(string id)
+        {
+            var query = Query.EQ("_id", ObjectId.Parse(id));
+            this.BillCollection.Remove(query);
+            return Redirect("/Admin/Index");
         }
 
         public ActionResult AddTable()
