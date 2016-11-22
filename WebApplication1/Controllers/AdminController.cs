@@ -418,6 +418,14 @@ namespace WebApplication1.Controllers
                      }
                  }
                  ViewBag.Employee = EmList;
+                int count = 0;
+                List<Product> ProdList = this.ProductCollection.FindAll().SetSortOrder(SortBy.Descending("PID")).SetLimit(1).ToList<Product>();
+                foreach (var item in ProdList)
+                {
+                   count = item.PID;
+                }
+                count++;
+                ViewBag.count = count;
                 return View();
              }
              else

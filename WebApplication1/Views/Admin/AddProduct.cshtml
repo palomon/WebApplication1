@@ -67,7 +67,7 @@
                                 <label class="col-md-4 control-label" for="">รหัสสินค้า</label>
                                 <div class="col-md-4">
                                    <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "รหัสสินค้า", @type = "text", @required = "required" } })
+                                    @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "รหัสสินค้า", @type = "text", @required = "required" , @Value = Html.ViewBag.count , @readonly = "true" } })
                                     @Html.ValidationMessageFor(model => model.PID)
 
                                 </div>
