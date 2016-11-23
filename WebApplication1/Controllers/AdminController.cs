@@ -280,6 +280,15 @@ namespace WebApplication1.Controllers
                 }
                 ViewBag.Employee = EmList;
 
+                int count = 0;
+                List<Employee> EmpList = this.EmployeeCollection.FindAll().SetSortOrder(SortBy.Descending("EmID")).SetLimit(1).ToList<Employee>();
+                foreach (var item in EmpList)
+                {
+                    count = item.EmID;
+                }
+                count++;
+                ViewBag.count = count;
+
 
 
                 return View();
@@ -448,10 +457,13 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
+            if (Prod.Remain == 0)
+            {
+                return Redirect("/Admin/AddProduct?result=false");
+            }
             Prod.AmountMAX = 500;
             this.ProductCollection.Save(Prod);
             return Redirect("/Admin/AddProduct?result=true");
-
         }
         //Edit Product
         public ActionResult EditProduct()
@@ -635,6 +647,16 @@ namespace WebApplication1.Controllers
                     }
                 }
                 ViewBag.Employee = EmList;
+
+                int count = 0;
+                List<Table> TabList = this.TableCollection.FindAll().SetSortOrder(SortBy.Descending("TableID")).SetLimit(1).ToList<Table>();
+                foreach (var item in TabList)
+                {
+                    count = item.TableID;
+                }
+                count++;
+                ViewBag.count = count;
+
                 return View();
             }
             else
@@ -849,6 +871,7 @@ namespace WebApplication1.Controllers
                 return Redirect("/Admin/Login");
             }
         }
+
         // EditPrice
         [HttpPost]
         public ActionResult EditPrice(BuffetPrice BP)

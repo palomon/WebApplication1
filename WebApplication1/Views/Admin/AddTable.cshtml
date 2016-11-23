@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.Table
+﻿	@model WebApplication1.Models.Table
 @{
     ViewBag.Title = "SmartBuffet; จัดการโต๊ะ";
 }
@@ -67,7 +67,7 @@
                                 <label class="col-md-4 control-label" for="">เลขโต๊ะ</label>
                                 <div class="col-md-4">
                                     <!-- <input id="" name="" type="text" placeholder="รหัสสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.TableID , new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text", @required = "required" } })
+                                    @Html.EditorFor(model => model.TableID , new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เลขโต๊ะ", @type = "text", @required = "required", @Value = Html.ViewBag.count, @readonly = "true" } })
                                     @Html.ValidationMessageFor(model => model.TableID)
 
                                 </div>

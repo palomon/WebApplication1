@@ -96,7 +96,7 @@
                                         <!--
                                         <input id="" name="" type="password" placeholder="password" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "password", @type = "password", @readonly = "true", @Value = @Html.ViewBag.EmployeeEdit.Password } })
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "password", @type = "password", @Value = @Html.ViewBag.EmployeeEdit.Password, @required = "required", @pattern = "[a-zA-Z0-9]{4,}" } })
                                         @Html.ValidationMessageFor(model => model.Password)
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                             <option value="admin">กูเอง</option>
                                         </select>
                                         -->
-                                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ตำแหน่ง", @type = "text", @Value = @Html.ViewBag.EmployeeEdit.Position, @required = "required" } })
+                                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "1-4", @type = "text", @Value = @Html.ViewBag.EmployeeEdit.Position, @required = "required", @pattern = "[1-4]{1}" } })
                                         @Html.ValidationMessageFor(model => model.Position)
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                         <!--
                                         <input id="" name="" type="text" placeholder="เบอร์โทรศัพท์" class="form-control input-md" required="">
                                         -->
-                                        @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "เบอร์โทรศัพท์", @type = "text" , @Value = @Html.ViewBag.EmployeeEdit.Tel, @required = "required" } })
+                                        @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ex.0812345678", @type = "text" , @Value = @Html.ViewBag.EmployeeEdit.Tel, @required = "required", @pattern = "[0]+[0-9]{9}" } })
                                         @Html.ValidationMessageFor(model => model.Tel)
                                     </div>
                                 </div>

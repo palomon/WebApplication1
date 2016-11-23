@@ -90,7 +90,7 @@
                                 <label class="col-md-4 control-label" for="">ราคาสินค้า</label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="ราคาสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.PPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคาสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.PPrice, @required = "required" } })
+                                    @Html.EditorFor(model => model.PPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคาสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.PPrice, @required = "required", @pattern = "[0-9]" } })
                                     @Html.ValidationMessageFor(model => model.PPrice)
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                 <label class="col-md-4 control-label" for="">จำนวนสินค้า</label>
                                 <div class="col-md-4">
                                     <!--   <input id="" name="" type="text" placeholder="จำนวนสินค้า" class="form-control input-md" required=""> -->
-                                    @Html.EditorFor(model => model.Remain, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.Remain, @required = "required" } })
+                                    @Html.EditorFor(model => model.Remain, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "จำนวนสินค้า", @type = "text", @Value = @Html.ViewBag.ProductEdit.Remain, @required = "required", @pattern = "[0-9]" } })
                                     @Html.ValidationMessageFor(model => model.Remain)
                                 </div>
                             </div>

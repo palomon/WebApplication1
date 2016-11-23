@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="">ประเภท</label>
                                     <div class="col-md-4">
-                                        @Html.EditorFor(model => model.BuffetID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "1 : เด็ก , 2 : ผู้ใหญ่", @type = "text", @required = "required" } })
+                                        @Html.EditorFor(model => model.BuffetID, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "1 : เด็ก , 2 : ผู้ใหญ่", @type = "text", @required = "required" , @pattern = "[1-2]{1}" } })
                                         @Html.ValidationMessageFor(model => model.BuffetID)
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="">ราคา</label>
                                     <div class="col-md-4">
-                                        @Html.EditorFor(model => model.BPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคา", @type = "text", @required = "required" } })
+                                        @Html.EditorFor(model => model.BPrice, new { htmlAttributes = new { @class = "form-control input-md", @placeholder = "ราคา", @type = "text", @required = "required" , @pattern = "[0-9]" } })
                                         @Html.ValidationMessageFor(model => model.BPrice)
                                     </div>
                                 </div>
